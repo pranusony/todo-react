@@ -33,7 +33,7 @@ export class TodoListItemView extends React.Component {
         if(this.state && this.state.editing) {
             liClassName = liClassName + " editing";
         }
-        return <li className={liClassName} style={{display: this.props.display == true ?'block':'none'}} onDoubleClick={(event)=>{this.edit(event)}}>
+        return <li className={liClassName} onDoubleClick={(event)=>{this.edit(event)}}>
             <div className="view">
                 <input type="checkbox" className="toggle" checked={this.props.todoItem.completed} onClick={(event)=>{this.handleStrikeThroughListItem(event)}}/>
                 <label>{this.props.todoItem.description} </label>

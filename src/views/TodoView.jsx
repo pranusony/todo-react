@@ -50,13 +50,27 @@ export class TodoView extends React.Component {
 
     render() {
 
-        const listItems = todoModel.todoItems.map((todoItem,index) =>{
-            var display = true;
-            if(this.state.filterType == "active" && todoItem.completed)
-                display = false;
-            else if(this.state.filterType == "completed" && todoItem.completed === false)
-                display = false;
-            return <TodoListItemView todoItem={todoItem} key={index} display={display}  filterType={this.state.filterType} />
+        var filteredTodoItems = todoModel.todoItems;
+         if(this.state.filterType)
+         {
+            filteredTodoItems=todoModel.todoItems.filter((todoItem)=>{
+                 if(this.state.filterType == "active" && todoItem.completed == false){
+                     return true;
+                 }
+                 else if(this.state.filterType == "completed" && todoItem.completed == true){
+                     return true;
+                 }
+                 else if(this.state.filterType == "all"){
+                     return true;
+                 }
+
+                 return false;
+
+             })
+         }
+        const listItems = filteredTodoItems.map((todoItem,index) =>{
+
+            return <TodoListItemView todoItem={todoItem} key={index}   filterType={this.state.filterType} />
 
         }
 
