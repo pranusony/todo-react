@@ -4,7 +4,7 @@ import {ModelEvents} from "../constants";
 import {TodoListItemView} from "./TodoListItemView.jsx";
 
 export class TodoView extends React.Component {
-    _toggleAll;
+
     constructor(){
 
         super();
@@ -43,11 +43,25 @@ export class TodoView extends React.Component {
     handleClearCompletedClicked(){
         todoModel.removeAllCompleted();
     }
+    handleFilterListItems(filterType){
+       this.setState({filterType:filterType})
+
+    }
 
     render() {
 
-        const listItems = todoModel.todoItems.map((todoItem,index) =>
-            <TodoListItemView todoItem={todoItem} key={index} className ={todoItem.completed}/>
+        const listItems = todoModel.todoItems.map((todoItem,index) =>{
+            var display = true;
+            if(this.state.filterType == "active" && todoItem.completed)
+                display = false;
+            else if(this.state.filterType == "completed" && todoItem.completed === false)
+                display = false;
+            return <TodoListItemView todoItem={todoItem} key={index} display={display}  filterType={this.state.filterType} />
+
+        }
+
+
+
         );
 
 
@@ -67,9 +81,10 @@ export class TodoView extends React.Component {
             <footer className="footer" style={{display: todoModel.todoItems.length > 0 ?'block':'none'}}>
                 <span className="todo-count">{todoModel.activeTodoItemsCount}</span>
                 <ul className="filters">
-                    <li><a href="#/" className="selected" id="all">All</a></li>
-                    <li><a href="#/" className="Active" id="active">Active</a></li>
-                    <li><a href="#/" className="completed" id="completed">Completed</a></li>
+
+                    <li><a href="#/"  id="all" onClick={()=>{this.handleFilterListItems('all')}} defaultClassName="">All</a></li>
+                    <li><a href="#/" id="active" onClick={()=>{this.handleFilterListItems('active')}}>Active</a></li>
+                    <li><a href="#/"  id="completed" onClick={()=>{this.handleFilterListItems('completed')}}>Completed</a></li>
                 </ul>
                 <button className="clear-completed"  style={{display: todoModel.completedTodoItemsCount > 0 ?'block':'none'}} onClick={()=>{this.handleClearCompletedClicked()}}>Clear completed</button>
             </footer>
