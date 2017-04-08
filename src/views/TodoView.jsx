@@ -96,9 +96,9 @@ export class TodoView extends React.Component {
                 <span className="todo-count">{todoModel.activeTodoItemsCount}</span>
                 <ul className="filters">
 
-                    <li><a href="#/"  id="all" onClick={()=>{this.handleFilterListItems('all')}} defaultClassName="">All</a></li>
-                    <li><a href="#/" id="active" onClick={()=>{this.handleFilterListItems('active')}}>Active</a></li>
-                    <li><a href="#/"  id="completed" onClick={()=>{this.handleFilterListItems('completed')}}>Completed</a></li>
+                    <li><a href="#/all" className={this.state.filterType === "all"?"selected":""} onClick={()=>{this.handleFilterListItems('all')}} >All</a></li>
+                    <li><a href="#/active"  className={this.state.filterType === "active"?"selected":""} onClick={()=>{this.handleFilterListItems('active')}}>Active</a></li>
+                    <li><a href="#/completed"  className={this.state.filterType === "completed"?"selected":""}   onClick={()=>{this.handleFilterListItems('completed')}}>Completed</a></li>
                 </ul>
                 <button className="clear-completed"  style={{display: todoModel.completedTodoItemsCount > 0 ?'block':'none'}} onClick={()=>{this.handleClearCompletedClicked()}}>Clear completed</button>
             </footer>
