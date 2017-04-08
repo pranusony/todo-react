@@ -1,17 +1,12 @@
 /**
  * Created by varunreddy on 4/5/17.
  */
+import "./styles/style.css"
 import React from 'react'
 import ReactDOM from "react-dom"
-import {Hello} from './views/Hello'
+import {App} from "./views/App.jsx";
+import {TodoModel} from "./models/TodoModel";
 
-class App extends React.Component {
-    render(){
-        return(
-            <div>
-                <Hello/>
-            </div>
-        )
-    }
-}
-ReactDOM.render(<App/>, document.getElementById("app"))
+
+
+ReactDOM.render(React.createElement(App), document.getElementsByClassName("todoapp")[0]);
